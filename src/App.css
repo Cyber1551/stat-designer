@@ -1,0 +1,18 @@
+@import '~antd/dist/antd.css';
+
+.App {
+  text-align: center;
+}
+
+.tabs {
+  width: 100vw;
+  height: 100vh;
+}
+.section {
+  padding: 10px;
+}
+
+.add-button {
+  line-height: 0;
+  margin-right: 10px;
+}
