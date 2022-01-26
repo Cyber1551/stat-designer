@@ -34,20 +34,19 @@ export const StatCard: FC<IStatCard> = ({ stat }: IStatCard) => {
             </Col>
         </Row>
     )
-    const onFormulaSearch = (value: string, prefix: string) => {
-        console.log (prefix)
-        setPrefix(prefix);
+    const onFormulaSearch = (value: string) => {
+
     }
 
     return (
         <Col>
             <Card title={title} className={'stat-card'} bodyStyle={{ padding: 0 }}
                   extra={<a onClick={onStatRemove}>X</a>}>
-                <Mentions placeholder={"Formula"} style={{ textAlign: 'left' }} prefix={['@', '#']} onSearch={onFormulaSearch}>
+                <Mentions placeholder={"Formula"} style={{ textAlign: 'left' }} onChange={onFormulaSearch} defaultValue={"@LEVEL"}>
                     {
-                        (prefix === '@') && stats.map((stat) => <Option value={stat.name}>{stat.name}</Option>)
-                            ||
-                        (prefix === '#') && ['LEVEL'].map((obj) => <Option value={obj}>{obj}</Option> )
+                        //(prefix === '@') && stats.map((stat) => <Option value={stat.name}>{stat.name}</Option>)
+
+                        ['LEVEL'].map((obj) => <Option value={obj}>{obj}</Option> )
                     }
                 </Mentions>
                 <StatGridItem header={true}/>

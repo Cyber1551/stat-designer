@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StatProvider } from "./context/StatContext";
+import { AbilityProvider } from "./context/AbilityContext";
 
 ReactDOM.render(
     <React.StrictMode>
         <StatProvider>
-            <App/>
+            <AbilityProvider>
+                <App/>
+            </AbilityProvider>
         </StatProvider>
     </React.StrictMode>,
     document.getElementById('root')

@@ -1,0 +1,7 @@
+.ability-tab {
+    width: 100vw;
+    height: calc(100vh - 50px);
+    background-color: white;
+}
+
+

@@ -6,13 +6,17 @@ export interface IStatContext {
     addStat:Function
     removeStat:Function
     updateStatTitle:Function
+    findStatByName: Function
+    evalStat:Function
 }
 
 export const StatContext = React.createContext<IStatContext>({
     stats: [],
     addStat: Function,
     removeStat: Function,
-    updateStatTitle:Function
+    updateStatTitle:Function,
+    findStatByName:Function,
+    evalStat: Function
 });
 
 export const StatProvider = (props: { children: ReactElement | ReactElement[] }) => {
@@ -25,7 +29,7 @@ export const StatProvider = (props: { children: ReactElement | ReactElement[] })
             levels:[...[1,2,3,4,5,6,7,8,9,10].map((value) => {
                 return {
                     level: value,
-                    value: 0
+                    value: value
                 }
             })]
         }
@@ -38,16 +42,30 @@ export const StatProvider = (props: { children: ReactElement | ReactElement[] })
     const findStatById = (id: number) => {
         return stats.find((stat) => stat.id === id);
     }
+
+    const findStatByName = (name: string) => {
+        return stats.find((stat) => stat.name === name)
+    }
     const updateStatTitle = (statId: number, title:string) => {
         const foundStat = findStatById(statId);
         if (foundStat) {
             const index = stats.indexOf(foundStat);
             const copy = [...stats]
-            //const f = copy.filter((s) => s.name === title);
-            //if (f.length > 0) title = `${title}${f.length}`
             copy[index].name = title;
             setStats(copy);
         }
+    }
+    const evalStat = (stat:string, level: number) => {
+        const found = findStatByName(stat);
+        if (found) {
+            const foundL = found.levels[level + 1]
+            if (foundL)
+            {
+                return foundL.value;
+            }
+            return 0;
+        }
+        return null;
     }
     return (
         <StatContext.Provider
@@ -55,7 +73,9 @@ export const StatProvider = (props: { children: ReactElement | ReactElement[] })
                 stats: stats,
                 addStat: addStat,
                 removeStat: removeStat,
-                updateStatTitle: updateStatTitle
+                updateStatTitle: updateStatTitle,
+                findStatByName,
+                evalStat
             }}
             {...props}
         />
